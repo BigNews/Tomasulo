@@ -1,0 +1,89 @@
+#! c:/iverilog/bin/vvp
+:ivl_version "0.10.0 (devel)" "(s20130827)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_00705448 .scope module, "arrayWriter" "arrayWriter" 2 2;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 6 "index"
+    .port_info 1 /OUTPUT 32 "data"
+    .port_info 2 /OUTPUT 1 "writeEnable"
+v0070DAB8_0 .var "data", 31 0;
+v0070DB10_0 .var/i "i", 31 0;
+v0070DB68_0 .var "index", 5 0;
+v0070DBC0_0 .var "writeEnable", 0 0;
+S_00705518 .scope module, "array" "array" 2 17, 3 1 0, S_00705448;
+ .timescale 0 0;
+    .port_info 0 /INPUT 6 "index"
+    .port_info 1 /INPUT 32 "writeData"
+    .port_info 2 /INPUT 1 "writeEnable"
+v007013D0 .array "data", 31 0, 31 0;
+v00701428_0 .var/i "i", 31 0;
+v00701480_0 .net "index", 5 0, v0070DB68_0;  1 drivers
+v007014D8_0 .net "writeData", 31 0, v0070DAB8_0;  1 drivers
+v00701530_0 .net "writeEnable", 0 0, v0070DBC0_0;  1 drivers
+E_00705098 .event posedge, v00701530_0;
+    .scope S_00705518;
+T_0 ;
+    %wait E_00705098;
+    %load/v 8, v007014D8_0, 32;
+    %load/v 40, v00701480_0, 6;
+    %pad 46, 0, 1;
+    %ix/get 3, 40, 7;
+    %jmp/1 t_0, 4;
+    %ix/load 1, 0, 0;
+    %set/av v007013D0, 8, 32;
+t_0 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_00705518;
+T_1 ;
+    %delay 100, 0;
+    %set/v v00701428_0, 0, 32;
+T_1.0 ;
+    %load/v 8, v00701428_0, 32;
+    %cmpi/s 8, 32, 32;
+    %jmp/0xz T_1.1, 5;
+    %vpi_call 3 12 "$display", "data[%d] = %d", v00701428_0, &A<v007013D0, v00701428_0 > {0 0};
+    %load/v 8, v00701428_0, 32;
+    %movi 40, 1, 32;
+    %add 40, 8, 32;
+    %set/v v00701428_0, 40, 32;
+    %jmp T_1.0;
+T_1.1 ;
+    %vpi_call 3 13 "$finish" {0 0};
+    %end;
+    .thread T_1;
+    .scope S_00705448;
+T_2 ;
+    %set/v v0070DBC0_0, 0, 1;
+    %set/v v0070DB10_0, 0, 32;
+T_2.0 ;
+    %load/v 8, v0070DB10_0, 32;
+    %cmpi/s 8, 32, 32;
+    %jmp/0xz T_2.1, 5;
+    %load/v 8, v0070DB10_0, 6; Only need 6 of 32 bits
+; Save base=8 wid=6 in lookaside.
+    %set/v v0070DB68_0, 8, 6;
+    %load/v 8, v0070DB10_0, 32;
+    %set/v v0070DAB8_0, 8, 32;
+    %set/v v0070DBC0_0, 1, 1;
+    %delay 0, 0;
+    %set/v v0070DBC0_0, 0, 1;
+    %load/v 8, v0070DB10_0, 32;
+    %movi 40, 1, 32;
+    %add 40, 8, 32;
+    %set/v v0070DB10_0, 40, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "posedge.v";
+    "./array.v";

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{amstext}
+\usepackage{amssymb}
+
+\title{CPU设计(Tomasulo)大作业报告}
+\author{致远学院ACM班~~~~柏钧文~~~~张曦虎}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{前言}
+
+本次计算机系统课大作业是CPU设计，本学期课上讲过的CPU设计主要是single cycle machine，5-stage pipeline machine，scoreboard和Tomasulo。本次课程大作业要求原本是要写一个5-stage pipeline machine，但我们想挑战一下自己，也想检验和运用自己所学的知识，于是，我们决定写Tomasulo，这个与现代处理器最接
+近的结构。
+
+Tomasulo总的来说是比较麻烦的，主要要考虑以下三点：
+
+1. Tomasulo的模块设计
+
+2. Tomasulo的out-of-order execution和in-order commit的实现
+
+3. Branch Predictor
+
+实际上，上述三点结合上课所学的知识就基本表明了我们所要写的模块。
+
+总的来说，我们要写的模块基本有以下几个：operation queue，instruction decode, reservation stations, common data bus, reorder buffer, branch predictor。
+
+当然，一些基本的必要的模块，比如register file，cache，memory等也都是要考虑并实现的。
+
+下面这张图是我们设计的Tomasulo的一个简要示意图：
+
+\includegraphics[height=8cm]{structure.png}
+
+图中为了简洁起见，很多线都合并成了一根线，此外，图中的很多线兼具输入信号和输出信号的功能，就不一一在这里赘述了。下面会对各
+个组件进行详细的介绍。
+
+\section{operation queue \& instruction decode}
+
+operation queue和instruction decode主要是对指令进行抓取和分析的工作。在这次我们写的verilog各个组件中，operation queue对应的组件就是instruction fetch。在operation queue中，我们一开始会从instruction memory里面抓指令到instruction cache中。cpu开始运转后，operation queue会有一个输入的pc值，对于这个pc值，在cache中找到对应的instruction，并作为这个组件的output输出。
+
+operation queue抛出的instruction作为instruction decode组件的输入。在instruction decode组件中，
+
+\end{document} 
