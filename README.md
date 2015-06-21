@@ -12,4 +12,5 @@ Dexterous death maker?
 Final project for the Computer Architecture course. After all, it's not a good CPU since it can only perform limited functionalities. It may be manufactured but it will lead the company directly to the bankrupcy as well.
 
 无聊就随便看看吧。
+
 Read the codes to find something interesting although these codes have nothing interesting.
