@@ -1,5 +1,4 @@
 # Tomasulo
-合作任务，过了时间推个仓库瞎扯淡。
 
 Teamwork. This repository is published along with a bunch of nonsense.
 
